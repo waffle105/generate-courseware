@@ -1,0 +1,4 @@
+interface:
+  display_name: "课件生成"
+  short_description: "生成两套样式可选的视觉化低文字图片型中文教学课件。"
+  default_prompt: "Use $generate-courseware 根据主题或教学大纲生成一套视觉化图片型教学课件，并先给我两套样式选择。"
