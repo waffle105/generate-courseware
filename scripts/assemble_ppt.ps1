@@ -128,10 +128,18 @@ try {
     Write-Output "Saved PPTX: $outputPath"
 } finally {
     if ($presentation -ne $null) {
-        $presentation.Close()
+        try {
+            $presentation.Close()
+        } catch {
+            Write-Warning "PowerPoint saved the file, but closing the presentation failed: $($_.Exception.Message)"
+        }
     }
     if ($powerPoint -ne $null) {
-        $powerPoint.Quit()
+        try {
+            $powerPoint.Quit()
+        } catch {
+            Write-Warning "PowerPoint saved the file, but quitting PowerPoint failed: $($_.Exception.Message)"
+        }
     }
     if ($presentation -ne $null) {
         [System.Runtime.InteropServices.Marshal]::ReleaseComObject($presentation) | Out-Null

@@ -16,8 +16,9 @@ Use this default sequence:
 3. Create two style directions for the user to choose. Each direction must include a cover page, table-of-contents page, and representative content page.
 4. After the user chooses a style, lock a deck style guide and use it consistently across all remaining pages.
 5. Generate each slide as a separate full-page 1920x1080 image with `gpt-image-2`.
-6. Inspect each image for readability, visual logic, text density, style consistency, and teaching usefulness; regenerate weak pages.
-7. Build the PPT with PowerPoint automation by inserting each image full-bleed and writing speaker notes.
+6. Inspect each image for readability, visual logic, text density, style consistency, title correctness, and teaching usefulness; regenerate or repair weak pages.
+7. Run a title fidelity pass: titles must be correct and consistent without damaging the illustration. Prefer generating pages with a planned, clean title-safe area, then draw the final title into that reserved area. Never fix titles by cropping, blocking, or covering meaningful visual content with a large opaque band.
+8. Build the PPT with PowerPoint automation by inserting each image full-bleed and writing speaker notes.
 
 ## Course Planning
 
@@ -64,6 +65,11 @@ After selection, create `courseware-output/<course-title>/style-guide.md` and ke
 
 - Main palette and accent colors
 - Title/subtitle scale and recurring placement
+- Typography scale by page role:
+  - Cover title: dominant hero title, visually similar to the user's preferred large cover reference. It should occupy the primary visual hierarchy and be clearly larger than any content-page title.
+  - Section or chapter title: large but secondary to the cover title.
+  - Content-page title: medium-large and consistent across all content pages, visually similar to the user's preferred content-page reference. It must not dominate the page or crowd the diagram.
+  - Module/card labels: clearly smaller than the content-page title and consistent within the deck.
 - Content panel geometry and margins
 - Icon and illustration style
 - Background texture or scene rules
@@ -79,6 +85,8 @@ Keep text sparse:
 - One message per slide.
 - Short Chinese labels, not paragraphs.
 - Use large titles and readable labels.
+- Keep the title hierarchy correct: cover title is the largest text in the deck; content-page titles are smaller than cover titles and should not become oversized headline posters.
+- Keep content-page title size and placement consistent across pages of the same role. When a content title is long, reduce the wording or split the visual emphasis rather than making the title huge or letting it crowd the diagram.
 - Avoid tiny UI text, dense bullet lists, and decorative text blocks.
 - Use icons, arrows, numbers, panels, and spatial relationships to express logic.
 - Keep title size, title position, panel rhythm, margin system, icon weight, glow/shadow treatment, and footer treatment consistent after the style is selected.
@@ -120,6 +128,9 @@ courseware-output/<course-title>/pages/slide-02.png
 Inspect each generated slide before assembly. Regenerate a page when:
 
 - Chinese text is wrong, garbled, too small, or too dense.
+- The cover title is too small, weaker than content-page titles, or not the dominant first-viewport signal.
+- A content-page title is oversized, larger than the selected content-page title reference, or visually crowds the main diagram.
+- Title font, title size, or body-label size is inconsistent across pages with the same role.
 - The visual does not express the intended logic.
 - The page looks like generic decoration rather than teaching material.
 - The page does not follow the selected style guide.
@@ -127,6 +138,17 @@ Inspect each generated slide before assembly. Regenerate a page when:
 - Style consistency breaks without a teaching reason.
 
 Use OCR or visual inspection where available. If exact text fidelity is critical, keep the on-image text even shorter and regenerate until clean.
+
+## Title Fidelity Pass
+
+Before final assembly, compare every visible slide title against `deck_manifest.json`.
+
+- Cover title must be exact and largest in the deck.
+- Content-page titles must use the same font, size, position, and title-band treatment across pages.
+- If exact Chinese title fidelity is important, generate the slide image with no main slide title and a reserved clean title-safe area, then draw the correct title into that area with a system Chinese sans-serif font.
+- If a generated title contains a wrong Chinese character, duplicated shadow title, mixed font style, or inconsistent size, do not use a large opaque cover bar that cuts into the scene. Regenerate the page with a proper title-safe layout, or repair only a small non-content title plaque area.
+- This repair pass must produce a full-slide PNG. Do not add separate PPT title text boxes in the final deck.
+- Do not use Python or Python PPT tools for this repair or assembly step.
 
 ## Speaker Notes
 

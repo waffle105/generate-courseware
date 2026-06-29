@@ -10,6 +10,8 @@ Use these patterns to match the user's preferred teaching decks: full-slide PNGs
 - Teaching value: the instructor notes carry explanation depth; the image carries memory and logic.
 - Layout: strong hierarchy, generous spacing, readable labels, visible arrows or relationships.
 - Repetition: keep recurring modules, colors, icon style, and footer markers consistent inside one deck.
+- Typography hierarchy: cover titles must be the largest and most dominant text in the deck; content-page titles should be medium-large, consistent, and never so large that they overpower the teaching diagram. Card/module labels should remain smaller than content-page titles.
+- Long Chinese titles: prefer shorter wording or a two-line balanced layout. Do not solve a long title by making every character huge.
 
 ## Tech HUD Style
 
@@ -49,6 +51,7 @@ Use for AI video, short films, storyboards, creative planning, prompting, and ed
 - Motifs: clapboards, storyboard sheets, lens panels, film strips, production checklists, shot types.
 - Best for: story-first methods, camera language, asset preparation, prompt structure, editing checks.
 - Avoid: overly realistic small UI panels with illegible text.
+- Typography: use one bold Chinese sans-serif title style throughout. Cover title should feel like a cinematic main title; content-page title should match the user's preferred content reference: strong, readable, upper-left or top-band placement, but clearly smaller than the cover title.
 
 ## Diagram Choices
 
@@ -61,6 +64,6 @@ Use for AI video, short films, storyboards, creative planning, prompting, and ed
 ## Consistency Rules
 
 - Lock a style guide after the user chooses one of the two sample directions.
-- Keep title placement, margins, content grid, panel size rhythm, icon line weight, glow intensity, background texture, and page-number treatment consistent.
+- Keep title placement, title scale, margins, content grid, panel size rhythm, icon line weight, glow intensity, background texture, and page-number treatment consistent.
 - Let page roles vary, but keep their family resemblance: chapter dividers, framework pages, case pages, practice pages, and summary pages should each have a stable grammar.
 - If a later slide needs a new diagram form, adapt it to the selected style rather than inventing a new visual system.
