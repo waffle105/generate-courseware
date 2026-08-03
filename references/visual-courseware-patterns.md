@@ -9,7 +9,8 @@ Use these patterns to match the user's preferred teaching decks: full-slide PNGs
 - Text: short Chinese titles and labels only; avoid paragraph explanations on the slide.
 - Teaching value: the instructor notes carry explanation depth; the image carries memory and logic.
 - Layout: strong hierarchy, generous spacing, readable labels, visible arrows or relationships.
-- Repetition: keep recurring modules, colors, icon style, and footer markers consistent inside one deck.
+- Repetition: keep recurring modules, colors, icon style, and non-numbered footer elements consistent inside one deck.
+- Page numbers: never render page numbers or page-number-like footer markers on audience-facing pages. Slide numbers are internal production metadata only.
 - Typography hierarchy: cover titles must be the largest and most dominant text in the deck; content-page titles should be medium-large, consistent, and never so large that they overpower the teaching diagram. Card/module labels should remain smaller than content-page titles.
 - Long Chinese titles: prefer shorter wording or a two-line balanced layout. Do not solve a long title by making every character huge.
 
@@ -30,7 +31,7 @@ Use this as the default when the user does not specify a style. It is based on t
 - Layout: large left title area, structured right-side or center content modules, subtle world-map/grid/data texture.
 - Components: translucent glass panels, rounded rectangles, thin neon strokes, icon circles, dashboard cards, progress lines, matrix blocks.
 - Typography feel: large high-contrast Chinese title, smaller English subtitle when useful, consistent body-label scale across all content pages.
-- Page system: cover, contents, chapter divider, and content pages should share the same background language, title position, glow intensity, panel corner radius, and footer/page-number style.
+- Page system: cover, contents, chapter divider, and content pages should share the same background language, title position, glow intensity, panel corner radius, and non-numbered footer style.
 - Use for: business, management, strategy, AI, digitalization, marketing consulting, and professional training when no stronger industry-specific style is requested.
 - Avoid: copying any source logo, using stock watermark text, or changing title size/position from page to page.
 
@@ -64,6 +65,6 @@ Use for AI video, short films, storyboards, creative planning, prompting, and ed
 ## Consistency Rules
 
 - Lock a style guide after the user chooses one of the two sample directions.
-- Keep title placement, title scale, margins, content grid, panel size rhythm, icon line weight, glow intensity, background texture, and page-number treatment consistent.
+- Keep title placement, title scale, margins, content grid, panel size rhythm, icon line weight, glow intensity, background texture, and non-numbered footer treatment consistent.
 - Let page roles vary, but keep their family resemblance: chapter dividers, framework pages, case pages, practice pages, and summary pages should each have a stable grammar.
 - If a later slide needs a new diagram form, adapt it to the selected style rather than inventing a new visual system.
