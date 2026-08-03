@@ -1,177 +1,202 @@
 ---
+description: Create visual, low-text, image-based Chinese teaching
+  courseware from a topic, syllabus, teaching outline, lesson plan,
+  training goal, or adult-learning workshop request. Use when Codex
+  needs to plan slide-by-slide instructional content, generate two style
+  directions for user selection, generate each full-slide 1920x1080 page
+  image with gpt-image-2, assemble a picture-only PowerPoint deck, and
+  add speaker notes for instructor delivery.
 name: generate-courseware
-description: Create visual, low-text, image-based Chinese teaching courseware from a topic, syllabus, teaching outline, lesson plan, training goal, or adult-learning workshop request. Use when Codex needs to plan slide-by-slide instructional content, generate two style directions for user selection, generate each full-slide 1920x1080 page image with gpt-image-2, assemble a picture-only PowerPoint deck, and add speaker notes for instructor delivery.
 ---
 
 # Generate Courseware
 
 ## Core Rule
 
-Build image-based teaching decks that make abstract concepts, difficult logic, and hidden structures visible. Do not create content-heavy PPT text boxes. Do not use Python, python-pptx, or any Python PPT tooling to make or assemble the final deck.
+Create image-based teaching courseware that makes abstract concepts,
+complex logic, and hidden structures visible. Do not create PPTs with
+large amounts of text boxes. Do not use Python, python-pptx, or any
+Python PPT tools to create or assemble the final deck.
 
-Use this default sequence:
+Never show page numbers on audience-facing slide images or in the final
+PowerPoint. Slide numbers may be used only as internal production
+metadata in plans, manifests, filenames, prompts, and speaker notes.
+Do not render them as numerals, labels, footer markers, progress
+indicators, or decorative numbering on any cover, contents, transition,
+content, practice, summary, or closing page.
 
-1. Analyze the topic or syllabus and choose visual logic structures from `references/visual-logic-library.md`.
-2. Create a slide-level course plan and wait for user confirmation before generating final images.
-3. Create two style directions for the user to choose. Each direction must include a cover page, table-of-contents page, and representative content page.
-4. After the user chooses a style, lock a deck style guide and use it consistently across all remaining pages.
-5. Generate each slide as a separate full-page 1920x1080 image with `gpt-image-2`.
-6. Inspect each image for readability, visual logic, text density, style consistency, title correctness, and teaching usefulness; regenerate or repair weak pages.
-7. Run a title fidelity pass: titles must be correct and consistent without damaging the illustration. Prefer generating pages with a planned, clean title-safe area, then draw the final title into that reserved area. Never fix titles by cropping, blocking, or covering meaningful visual content with a large opaque band.
-8. Build the PPT with PowerPoint automation by inserting each image full-bleed and writing speaker notes.
+Do not edit this skill file unless the user explicitly asks to modify,
+update, or fix the skill. One-time preferences for a specific deck
+should only apply to that task and should not be written into
+`SKILL.md`.
+
+## Default Workflow
+
+1.  Analyze the course topic or outline and select suitable visual logic
+    structures from `references/visual-logic-library.md`.
+2.  Create a slide-by-slide course plan and wait for user confirmation
+    before generating final images.
+3.  Create two visual style directions for user selection. Each
+    direction must include a cover page, table-of-contents page, and
+    representative content page based on the actual course content
+    whenever possible.
+4.  After the user selects a style, lock the style guide and keep all
+    subsequent pages consistent, especially title, body text, emphasis
+    text, typography, sizes, and visual effects.
+5.  Generate each slide independently as a 1920x1080 full-page image
+    with `gpt-image-2`, ensuring accurate audience-facing Chinese text.
+6.  Review readability, visual logic, text density, style consistency,
+    title accuracy, and teaching value. Remove unnecessary or unsuitable
+    text and regenerate weak pages.
+7.  Perform title fidelity checks. Titles must be accurate and
+    consistent without damaging illustrations. Course title and
+    instructor name should only appear on the cover, not repeated on
+    internal pages.
+8.  Use PowerPoint automation to insert images full-bleed and add
+    speaker notes.
 
 ## Course Planning
 
-Create `courseware-output/<course-title>/course-plan.md` before any final page generation.
+Before generating final pages, create:
 
-The plan must include one row per slide with:
+`courseware-output/<course-title>/course-plan.md`
 
-- Slide number
-- Slide role, such as cover, hook, concept, framework, comparison, workflow, demo, practice, checklist, or summary
-- Slide title
-- One core teaching point
-- Visual metaphor, diagram type, or logic structure
-- On-slide text limit
-- Draft speaker notes
+Each slide row must include: - Slide number - Slide role - Slide title -
+One core teaching point - Visual metaphor, diagram type, or logic
+structure - Text limit - Draft speaker notes
 
-Use 18-24 slides for a normal formal course unless the user specifies otherwise. Use fewer slides for short lessons and more only when the outline needs it. Ask for confirmation after the plan unless the user explicitly says to skip confirmation.
+Use 18-24 slides for a normal formal course unless otherwise specified.
+For short lessons use fewer slides. If the outline requires more slides,
+create them in batches and merge later. Wait for confirmation unless the
+user explicitly skips confirmation.
 
-Before planning slide visuals, read `references/visual-logic-library.md` and map abstract concepts to suitable structures. Use concrete structures such as SWOT, PEST, strategy pyramid, growth flywheel, funnel, matrix, journey map, business canvas, lifecycle, RACI, swimlane, roadmap, KPI tree, or AI transformation roadmap when they fit the lesson.
+If the original structure lacks transition pages, automatically add
+chapter transition pages. Each table-of-contents item should correspond
+to a transition page.
+
+Before planning visuals, read `references/visual-logic-library.md` and
+match concepts with suitable structures such as SWOT, PEST, strategy
+pyramid, growth flywheel, funnel, matrix, journey map, business canvas,
+lifecycle, RACI, swimlane, roadmap, KPI tree, or AI transformation
+roadmap.
 
 ## Style Selection
 
-Before producing the full deck, create `courseware-output/<course-title>/style-options/` with two complete style directions:
+Create two complete style directions in:
 
-```text
-style-a-cover.png
-style-a-toc.png
-style-a-content.png
-style-b-cover.png
-style-b-toc.png
-style-b-content.png
-style-options.md
-```
+`courseware-output/<course-title>/style-options/`
 
-Each style direction must include:
+Each direction includes: - Cover sample - Table-of-contents sample -
+Representative content-page sample - Palette, typography, title
+placement, content grid, icon style, background motif, card/panel style,
+and footer treatment. All samples must omit visible page numbers.
 
-- Cover page sample
-- Table-of-contents page sample
-- One representative content page sample using a real slide from the planned course
-- Palette, typography feel, title placement, content grid, icon style, background motif, card/panel style, and footer/page-number treatment
+If the user does not specify a style: - Style A: blue technology
+business consulting style from
+`references/visual-courseware-patterns.md` - Style B: industry- and
+content-specific alternative
 
-If the user does not specify a style, make Style A the default blue technology business consulting style described in `references/visual-courseware-patterns.md`, inspired by the provided blue tech management chart PDF. Make Style B a content- and industry-specific alternative. Do not proceed to the full deck until the user chooses a style unless the user explicitly says to skip style selection.
+Do not create the full deck before the user selects a style unless they
+explicitly skip style selection.
 
-After selection, create `courseware-output/<course-title>/style-guide.md` and keep it stable for the rest of the deck. The style guide must lock:
+After selection create:
 
-- Main palette and accent colors
-- Title/subtitle scale and recurring placement
-- Typography scale by page role:
-  - Cover title: dominant hero title, visually similar to the user's preferred large cover reference. It should occupy the primary visual hierarchy and be clearly larger than any content-page title.
-  - Section or chapter title: large but secondary to the cover title.
-  - Content-page title: medium-large and consistent across all content pages, visually similar to the user's preferred content-page reference. It must not dominate the page or crowd the diagram.
-  - Module/card labels: clearly smaller than the content-page title and consistent within the deck.
-- Content panel geometry and margins
-- Icon and illustration style
-- Background texture or scene rules
-- Page number, chapter label, and footer treatment
-- Rules for diagrams, arrows, cards, charts, and callouts
+`courseware-output/<course-title>/style-guide.md`
+
+Lock: - Main palette and accent colors - Title/subtitle hierarchy and
+placement - Typography hierarchy by page role - Panel geometry and
+margins - Icon and illustration style - Background rules - Footer and
+no-visible-page-number rule - Diagram, arrow, card, chart, and
+annotation rules
 
 ## Visual Design
 
-Each slide must teach through visual structure. Prefer process maps, cycles, funnels, matrices, before-after comparisons, checklists, storyboard panels, timelines, decision trees, dashboards, scene diagrams, and annotated examples. Make abstract concepts visible, structured, and memorable.
+Each page must teach through visual structure. Prefer process maps,
+cycles, funnels, matrices, comparisons, checklists, storyboards,
+timelines, decision trees, dashboards, scene diagrams, and annotated
+examples.
 
-Keep text sparse:
+## Language Tone
 
-- One message per slide.
-- Short Chinese labels, not paragraphs.
-- Use large titles and readable labels.
-- Keep the title hierarchy correct: cover title is the largest text in the deck; content-page titles are smaller than cover titles and should not become oversized headline posters.
-- Keep content-page title size and placement consistent across pages of the same role. When a content title is long, reduce the wording or split the visual emphasis rather than making the title huge or letting it crowd the diagram.
-- Avoid tiny UI text, dense bullet lists, and decorative text blocks.
-- Use icons, arrows, numbers, panels, and spatial relationships to express logic.
-- Keep title size, title position, panel rhythm, margin system, icon weight, glow/shadow treatment, and footer treatment consistent after the style is selected.
-- Repeat the same visual language for the same teaching role: all chapter divider pages should feel related; all framework pages should share a layout grammar; all practice pages should share a worksheet grammar.
+Use calm, constructive, participant-respecting language.
 
-Read `references/visual-courseware-patterns.md` when choosing a style direction or matching the user's previous examples. Read `references/visual-logic-library.md` when choosing the best structure for a concept.
+-   Explain goals, next actions, or benefits directly.
+-   Avoid aggressive slogan patterns or language that dismisses existing
+    methods.
+-   Describe improvements and applicable conditions instead of saying
+    learners are wrong.
+-   Keep questions exploratory and practical.
+
+Keep text structured: - One core message per slide. - Short labels
+instead of paragraphs. - Large readable titles. - Cover title must be
+the largest text. - Content-page titles must remain consistent and not
+overpower diagrams. - Avoid tiny UI text, dense bullet lists, and
+decorative text blocks. - Use icons, arrows, numbers, panels, and
+spatial relationships.
 
 ## Image Generation
 
-Generate every slide image independently with `gpt-image-2`.
+Generate every slide independently with `gpt-image-2`.
 
-Default final image settings:
+Final delivery: - Complete audience-facing image slide - Accurate
+Chinese text included in final PNG
 
-- Model: `gpt-image-2`
-- Size: `1920x1080`
-- Quality: `high`
-- Aspect ratio: 16:9
-- Output format: PNG when possible
+Preferred workflow: - Generate visual backgrounds with `gpt-image-2`. -
+Ensure Chinese titles, labels, numbers, and phrases are accurate. - If
+users request removing text, remove only the text layer and keep visuals
+unchanged. - Do not regenerate, crop, mask, or redesign visuals for text
+removal only.
 
-For each slide, write a page prompt in `page-prompts.md` before generating the image. Each prompt must specify:
+Default settings: - Model: `gpt-image-2` - Size: `1920x1080` - Quality:
+`high` - Aspect ratio: `16:9` - Output: PNG
 
-- Course title and audience
-- Slide number and slide role
-- Exact Chinese text that should appear on the slide
-- Visual metaphor, layout, and hierarchy
-- Style direction
-- Locked style-guide details after the user has selected a style
-- Negative constraints: no long paragraphs, no unreadable small Chinese text, no extra invented labels, no distorted logos, no watermark
-
-Save generated pages as:
-
-```text
-courseware-output/<course-title>/pages/slide-01.png
-courseware-output/<course-title>/pages/slide-02.png
-```
+Before generating each image, write prompts in `page-prompts.md`
+including: - Course title and audience - Slide number and role - Exact
+Chinese text - Visual metaphor and layout - Style direction - Locked
+style guide details - Negative constraints, including no visible page
+numbers or page-number-like footer markers
 
 ## Quality Gate
 
-Inspect each generated slide before assembly. Regenerate a page when:
+Regenerate pages when: - Chinese text is incorrect, garbled, too small,
+or too dense. - Titles violate hierarchy. - Visual logic is unclear. -
+The page looks decorative rather than educational. - The style guide is
+not followed. - Important content is cropped or hidden. - Any visible
+page number or page-number-like footer marker appears.
 
-- Chinese text is wrong, garbled, too small, or too dense.
-- The cover title is too small, weaker than content-page titles, or not the dominant first-viewport signal.
-- A content-page title is oversized, larger than the selected content-page title reference, or visually crowds the main diagram.
-- Title font, title size, or body-label size is inconsistent across pages with the same role.
-- The visual does not express the intended logic.
-- The page looks like generic decoration rather than teaching material.
-- The page does not follow the selected style guide.
-- Important content is cropped, overlapped, or visually buried.
-- Style consistency breaks without a teaching reason.
-
-Use OCR or visual inspection where available. If exact text fidelity is critical, keep the on-image text even shorter and regenerate until clean.
+Use OCR or visual inspection when available.
 
 ## Title Fidelity Pass
 
-Before final assembly, compare every visible slide title against `deck_manifest.json`.
-
-- Cover title must be exact and largest in the deck.
-- Content-page titles must use the same font, size, position, and title-band treatment across pages.
-- If exact Chinese title fidelity is important, generate the slide image with no main slide title and a reserved clean title-safe area, then draw the correct title into that area with a system Chinese sans-serif font.
-- If a generated title contains a wrong Chinese character, duplicated shadow title, mixed font style, or inconsistent size, do not use a large opaque cover bar that cuts into the scene. Regenerate the page with a proper title-safe layout, or repair only a small non-content title plaque area.
-- This repair pass must produce a full-slide PNG. Do not add separate PPT title text boxes in the final deck.
-- Do not use Python or Python PPT tools for this repair or assembly step.
+Before final assembly: - Compare visible titles with
+`deck_manifest.json`. - Keep cover titles exact and dominant. - Keep
+content-page title treatment consistent. - Repair title problems through
+proper layouts, not large blocking bars. - Do not use Python or Python
+PPT tools for repair or assembly.
 
 ## Speaker Notes
 
-Every slide must have instructor notes in this format:
+Every slide must contain:
 
-```text
-讲解目标：...
+``` text
+Teaching objective: ...
 
-讲解要点：...
+Key teaching points: ...
 
-过渡提示：...
+Transition prompt: ...
 ```
 
-Write notes for speaking, not reading. Include the teaching intent, examples or prompts the instructor can say, and the bridge to the next slide.
+Notes should support speaking rather than reading. Include teaching
+intent, examples, questions, and transitions.
 
 ## Assembly
 
-Create `deck_manifest.json` following `references/manifest-schema.md`. Then run:
+Create `deck_manifest.json` following `references/manifest-schema.md`.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/assemble_ppt.ps1 -ManifestPath "courseware-output/<course-title>/deck_manifest.json"
-```
+Use PowerPoint automation to create the 16:9 deck, insert images
+full-bleed, add speaker notes, and save the `.pptx`.
 
-The script uses Microsoft PowerPoint automation. It creates a 16:9 deck, inserts each image full-bleed, writes speaker notes, and saves the `.pptx`.
+Do not use Python, python-pptx, or other Python tools for PowerPoint
+creation or assembly.
 
-If PowerPoint automation is unavailable, stop and tell the user. Do not fall back to Python PPT generation.
+If PowerPoint automation is unavailable, stop and inform the user.
