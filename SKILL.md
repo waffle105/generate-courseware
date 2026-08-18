@@ -18,6 +18,26 @@ complex logic, and hidden structures visible. Do not create PPTs with
 large amounts of text boxes. Do not use Python, python-pptx, or any
 Python PPT tools to create or assemble the final deck.
 
+At the beginning of every courseware task, before analyzing the course
+topic, planning slides, selecting styles, or generating images, ask the
+user to choose the required copy density:
+
+1.  Low density: visual-first courseware with minimal audience-facing
+    text, short labels, and speaker notes carrying most explanation.
+2.  Beautify only: strictly respect the existing page copy, images,
+    tables, charts, and other provided materials; only improve layout,
+    hierarchy, style, readability, and visual polish.
+3.  Detailed display: rich reader-facing content suitable for direct
+    reading, with detailed explanations and evidence-like structure,
+    similar to a research report.
+
+Do not proceed until the user chooses one option, unless the user has
+already explicitly specified the density in the request. Record the
+selected density in the course plan, page prompts, quality review notes,
+and final delivery summary. Apply the selected density consistently to
+slide planning, visual layout, image prompts, speaker notes, and quality
+gates.
+
 Never show page numbers on audience-facing slide images or in the final
 PowerPoint. Slide numbers may be used only as internal production
 metadata in plans, manifests, filenames, prompts, and speaker notes.
@@ -32,27 +52,30 @@ should only apply to that task and should not be written into
 
 ## Default Workflow
 
-1.  Analyze the course topic or outline and select suitable visual logic
+1.  Ask the user to choose copy density, unless already specified:
+    low density, beautify only, or detailed display.
+2.  Analyze the course topic or outline and select suitable visual logic
     structures from `references/visual-logic-library.md`.
-2.  Create a slide-by-slide course plan and wait for user confirmation
+3.  Create a slide-by-slide course plan and wait for user confirmation
     before generating final images.
-3.  Create two visual style directions for user selection. Each
+4.  Create two visual style directions for user selection. Each
     direction must include a cover page, table-of-contents page, and
     representative content page based on the actual course content
     whenever possible.
-4.  After the user selects a style, lock the style guide and keep all
+5.  After the user selects a style, lock the style guide and keep all
     subsequent pages consistent, especially title, body text, emphasis
     text, typography, sizes, and visual effects.
-5.  Generate each slide independently as a 1920x1080 full-page image
+6.  Generate each slide independently as a 1920x1080 full-page image
     with `gpt-image-2`, ensuring accurate audience-facing Chinese text.
-6.  Review readability, visual logic, text density, style consistency,
+7.  Review readability, visual logic, text density, style consistency,
     title accuracy, and teaching value. Remove unnecessary or unsuitable
-    text and regenerate weak pages.
-7.  Perform title fidelity checks. Titles must be accurate and
+    text only when the selected density permits it, and regenerate weak
+    pages.
+8.  Perform title fidelity checks. Titles must be accurate and
     consistent without damaging illustrations. Course title and
     instructor name should only appear on the cover, not repeated on
     internal pages.
-8.  Use PowerPoint automation to insert images full-bleed and add
+9.  Use PowerPoint automation to insert images full-bleed and add
     speaker notes.
 
 ## Course Planning
@@ -63,7 +86,7 @@ Before generating final pages, create:
 
 Each slide row must include: - Slide number - Slide role - Slide title -
 One core teaching point - Visual metaphor, diagram type, or logic
-structure - Text limit - Draft speaker notes
+structure - Selected copy density - Text limit - Draft speaker notes
 
 Use 18-24 slides for a normal formal course unless otherwise specified.
 For short lessons use fewer slides. If the outline requires more slides,
@@ -134,6 +157,19 @@ overpower diagrams. - Avoid tiny UI text, dense bullet lists, and
 decorative text blocks. - Use icons, arrows, numbers, panels, and
 spatial relationships.
 
+Adjust text structure by selected density:
+
+-   Low density: keep audience-facing copy brief and highly visual.
+    Prefer titles, section labels, short phrases, and diagram labels.
+-   Beautify only: preserve the original page wording and provided
+    images, tables, charts, and materials as faithfully as possible.
+    Do not summarize, rewrite, delete, add, or rearrange substantive
+    content unless the user explicitly approves it.
+-   Detailed display: allow more reader-facing text, explanations,
+    tables, annotations, comparisons, and report-like structure, while
+    still preserving clear hierarchy, readable font sizes, and visual
+    organization.
+
 ## Image Generation
 
 Generate every slide independently with `gpt-image-2`.
@@ -152,17 +188,23 @@ Default settings: - Model: `gpt-image-2` - Size: `1920x1080` - Quality:
 
 Before generating each image, write prompts in `page-prompts.md`
 including: - Course title and audience - Slide number and role - Exact
-Chinese text - Visual metaphor and layout - Style direction - Locked
-style guide details - Negative constraints, including no visible page
-numbers or page-number-like footer markers
+Chinese text - Selected copy density and related text-density rules -
+Visual metaphor and layout - Style direction - Locked style guide
+details - Negative constraints, including no visible page numbers or
+page-number-like footer markers
 
 ## Quality Gate
 
 Regenerate pages when: - Chinese text is incorrect, garbled, too small,
-or too dense. - Titles violate hierarchy. - Visual logic is unclear. -
-The page looks decorative rather than educational. - The style guide is
-not followed. - Important content is cropped or hidden. - Any visible
-page number or page-number-like footer marker appears.
+or inconsistent with the selected copy density. - Titles violate
+hierarchy. - Visual logic is unclear. - The page looks decorative rather
+than educational. - The style guide is not followed. - Important content
+is cropped or hidden. - Any visible page number or page-number-like
+footer marker appears.
+
+For beautify-only tasks, also regenerate or repair pages when original
+copy, images, tables, charts, or other supplied materials are omitted,
+substantively changed, or visually misrepresented.
 
 Use OCR or visual inspection when available.
 
